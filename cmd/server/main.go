@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Scrowszinho/api-go/tree/master/configs"
+	"github.com/Scrowszinho/api-go/configs"
 )
 
 func main() {
