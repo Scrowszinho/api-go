@@ -1,9 +1,10 @@
+
 POST http://localhost:8000/products
 Content-Type: application/json
 
 {
-    "name": "Test Product",
-    "price": 100.50
+    "name": "Test Product 2",
+    "price": 100.55
 }
 
 ### 
@@ -13,9 +14,17 @@ Content-Type: application/json
 
 ### 
 
+GET http://localhost:8000/products
+
+###
+
 PUT http://localhost:8000/products/840e6e8d-12c4-476b-af46-70c4b2c02a58	
 Content-Type: application/json
 {
     "name": "Test Product updated",
     "price": 200.50
 }
+
+###
+
+DELETE  http://localhost:8000/products/840e6e8d-12c4-476b-af46-70c4b2c02a58	
