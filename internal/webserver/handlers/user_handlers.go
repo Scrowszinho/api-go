@@ -19,7 +19,9 @@ type UserHandler struct {
 
 func NewUserHandler(db database.UserInterface, jwt *jwtauth.JWTAuth, JwtExpiresIn int) *UserHandler {
 	return &UserHandler{
-		UserDB: db,
+		UserDB:       db,
+		Jwt:          jwt,
+		JwtExpiresIn: JwtExpiresIn,
 	}
 }
 
