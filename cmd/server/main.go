@@ -18,7 +18,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	println(config.DBDriver)
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
 		panic(err)
@@ -36,8 +35,9 @@ func main() {
 	r.Delete("/products/{id}", productHandler.DeleteProduct)
 
 	userDB := database.NewUser(db)
-	userHandler := handlers.NewUserHandler(userDB)
+	userHandler := handlers.NewUserHandler(userDB, config.TokenAuth, config.JWTExpiresIn)
 	r.Post("/users", userHandler.CreateUser)
+	r.Post("/users/login", userHandler.GetJWT)
 
 	http.ListenAndServe(":8000", r)
 }
