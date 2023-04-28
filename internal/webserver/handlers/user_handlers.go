@@ -29,6 +29,17 @@ func NewUserHandler(db database.UserInterface, jwt *jwtauth.JWTAuth, JwtExpiresI
 	}
 }
 
+// GetJWT godoc
+// @Summary Get a user JWT
+// @Description Get a user JWT
+// @Tags users
+// @Accept json
+// @Produce json
+// @Param request body dto.GetJWTInput true "user credentials"
+// @Success 200 {object} dto.GetJWTOutput
+// @Failure 404
+// @Failure 500 {object} Error
+// @Router /users/login [post]
 func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 	var user dto.GetJWTInput
 	err := json.NewDecoder(r.Body).Decode(&user)
@@ -50,11 +61,7 @@ func (h *UserHandler) GetJWT(w http.ResponseWriter, r *http.Request) {
 		"exp": time.Now().Add(time.Second * time.Duration(h.JwtExpiresIn)).Unix(),
 	})
 
-	accessToken := struct {
-		AccessToken string `json:"access_token"`
-	}{
-		AccessToken: tokenString,
-	}
+	accessToken := dto.GetJWTOutput{AccessToken: tokenString}
 	w.Header().Set("content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(accessToken)
